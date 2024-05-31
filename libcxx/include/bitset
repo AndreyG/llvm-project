@@ -15,9 +15,6 @@
 /*
     bitset synopsis
 
-namespace std
-{
-
 namespace std {
 
 template <size_t N>
