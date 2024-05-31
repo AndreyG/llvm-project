@@ -11,7 +11,6 @@
 #define _LIBCPP_UNORDERED_MAP
 
 /*
-
     unordered_map synopsis
 
 #include <initializer_list>

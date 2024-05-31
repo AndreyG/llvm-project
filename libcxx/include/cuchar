@@ -11,7 +11,7 @@
 #define _LIBCPP_CUCHAR
 
 /*
-    cuchar synopsis // since C++11
+    cuchar synopsis
 
 Macros:
 
