@@ -13,7 +13,6 @@
 // clang-format off
 
 /*
-
     unordered_set synopsis
 
 #include <initializer_list>

@@ -11,6 +11,8 @@
 #define _LIBCPP_EXECUTION
 
 /*
+    execution synopsis
+
 namespace std::execution {
   struct sequenced_policy;
   struct parallel_policy;
