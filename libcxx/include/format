@@ -11,6 +11,7 @@
 #define _LIBCPP_FORMAT
 
 /*
+    format synopsis
 
 namespace std {
   // [format.context], class template basic_format_context

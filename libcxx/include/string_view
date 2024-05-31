@@ -13,7 +13,6 @@
 // clang-format off
 
 /*
-
     string_view synopsis
 
 #include <compare>
