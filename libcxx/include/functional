@@ -523,10 +523,6 @@ namespace ranges {
 
 }  // std
 
-POLICY:  For non-variadic implementations, the number of arguments is limited
-         to 3.  It is hoped that the need for non-variadic implementations
-         will be minimal.
-
 */
 
 #if __cplusplus < 201103L && defined(_LIBCPP_USE_FROZEN_CXX03_HEADERS)
