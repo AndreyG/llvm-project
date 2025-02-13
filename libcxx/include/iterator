@@ -37,7 +37,7 @@ template<dereferenceable T>
 
 namespace ranges::inline unspecified {
     inline constexpr unspecified iter_move = unspecified; // since C++20, nodiscard as an extension
-}}
+}
 
 template<dereferenceable T>
   requires ...
