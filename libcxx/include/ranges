@@ -218,6 +218,8 @@ namespace std::ranges {
   template<class T>
     inline constexpr bool enable_borrowed_range<drop_view<T>> = enable_borrowed_range<T>;
 
+  namespace views { inline constexpr unspecified drop = unspecified; }
+
   // [range.drop.while], drop while view
   template<view V, class Pred>
     requires input_range<V> && is_object_v<Pred> &&
@@ -237,6 +239,8 @@ namespace std::ranges {
              can-reference<invoke_result_t<F&, range_reference_t<V>>>
   class transform_view;
 
+  namespace views { inline constexpr unspecified transform = unspecified; }
+
   // [range.counted], counted view
   namespace views { inline constexpr unspecified counted = unspecified; }
 
@@ -244,6 +248,11 @@ namespace std::ranges {
   template<view V>
     requires (!common_range<V> && copyable<iterator_t<V>>)
   class common_view;
+
+  template<class T>
+  inline constexpr bool enable_borrowed_range<common_view<T>> = enable_borrowed_range<T>;
+
+  namespace views { inline constexpr unspecified common = unspecified; }
 
  // [range.reverse], reverse view
   template<view V>
@@ -253,14 +262,15 @@ namespace std::ranges {
   template<class T>
     inline constexpr bool enable_borrowed_range<reverse_view<T>> = enable_borrowed_range<T>;
 
-  template<class T>
-  inline constexpr bool enable_borrowed_range<common_view<T>> = enable_borrowed_range<T>;
+  namespace views { inline constexpr unspecified reverse = unspecified; }
 
    // [range.take], take view
   template<view> class take_view;
 
   template<class T>
   inline constexpr bool enable_borrowed_range<take_view<T>> = enable_borrowed_range<T>;
+
+  namespace views { inline constexpr unspecified take = unspecified; }
 
     // [range.take.while], take while view
   template<view V, class Pred>
@@ -303,6 +313,8 @@ namespace std::ranges {
   template<input_range V>
     requires view<V> && input_range<range_reference_t<V>>
   class join_view;
+
+  namespace views { inline constexpr unspecified join = unspecified; }
 
   // [range.join.with], join with view
   template<input_range V, forward_range Pattern>
