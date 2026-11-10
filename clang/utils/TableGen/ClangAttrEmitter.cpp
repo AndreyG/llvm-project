@@ -3993,9 +3993,11 @@ static bool GenerateTargetSpecificAttrChecks(const Record *R,
   return AnyTargetChecks;
 }
 
-static void GenerateHasAttrSpellingStringSwitch(
+// Computes, for every spelling name, the expression that __has_attribute
+// evaluates to for it.
+static llvm::StringMap<std::string> ComputeHasAttrSpellingTestStrings(
     ArrayRef<std::pair<const Record *, FlattenedSpelling>> Attrs,
-    raw_ostream &OS, StringRef Variety, StringRef Scope = "") {
+    StringRef Variety, StringRef Scope = "") {
 
   // It turns out that there are duplicate records for a given spelling. This
   // map combines matching test strings using '||'. For example, if there are
@@ -4074,6 +4076,15 @@ static void GenerateHasAttrSpellingStringSwitch(
         TestStringMap[Spelling.name()] = TestStr;
     }
   }
+
+  return TestStringMap;
+}
+
+static void GenerateHasAttrSpellingStringSwitch(
+    ArrayRef<std::pair<const Record *, FlattenedSpelling>> Attrs,
+    raw_ostream &OS, StringRef Variety, StringRef Scope = "") {
+  llvm::StringMap<std::string> TestStringMap =
+      ComputeHasAttrSpellingTestStrings(Attrs, Variety, Scope);
 
   // Create the actual string switch statement after all the attributes have
   // been parsed.
@@ -4217,6 +4228,26 @@ void EmitClangAttrHasAttrImpl(const RecordKeeper &Records, raw_ostream &OS) {
   OS << "  return 0;\n";
 
   OS << "}\n";
+}
+
+// Prints the names of all GNU-spelled attributes for which __has_attribute
+// unconditionally evaluates to 1, i.e. those that appear as
+// `.Case("name", (1))` in the AS_GNU section of the output of
+// EmitClangAttrHasAttrImpl. Each name is printed on its own line as a quoted
+// string followed by a comma, in the same order as in that output.
+void DumpClangAttrHasAttribute(const RecordKeeper &Records, raw_ostream &OS) {
+  std::vector<std::pair<const Record *, FlattenedSpelling>> GNU;
+  for (auto *R : Records.getAllDerivedDefinitions("Attr"))
+    for (const FlattenedSpelling &SI : GetFlattenedSpellings(*R))
+      if (SI.variety() == "GNU")
+        GNU.emplace_back(R, SI);
+
+  llvm::StringMap<std::string> TestStringMap =
+      ComputeHasAttrSpellingTestStrings(GNU, "GNU");
+
+  for (const auto &Entry : TestStringMap)
+    if (Entry.getValue() == "(1)")
+      OS << '"' << Entry.getKey() << "\",\n";
 }
 
 void EmitClangAttrSpellingListIndex(const RecordKeeper &Records,

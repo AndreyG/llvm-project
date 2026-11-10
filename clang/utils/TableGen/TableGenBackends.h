@@ -70,6 +70,8 @@ void EmitClangRegularKeywordAttributeInfo(const llvm::RecordKeeper &Records,
                                           llvm::raw_ostream &OS);
 void EmitClangAttrHasAttrImpl(const llvm::RecordKeeper &Records,
                               llvm::raw_ostream &OS);
+void DumpClangAttrHasAttribute(const llvm::RecordKeeper &Records,
+                               llvm::raw_ostream &OS);
 void EmitClangAttrSpellingListIndex(const llvm::RecordKeeper &Records,
                                     llvm::raw_ostream &OS);
 void EmitClangAttrASTVisitor(const llvm::RecordKeeper &Records,

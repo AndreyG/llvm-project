@@ -37,6 +37,7 @@ enum ActionType {
   GenClangAttrPCHWrite,
   GenClangRegularKeywordAttributeInfo,
   GenClangAttrHasAttributeImpl,
+  DumpClangAttrHasAttributeAction,
   GenClangAttrSpellingListIndex,
   GenClangAttrASTVisitor,
   GenClangAttrTemplateInstantiate,
@@ -169,6 +170,10 @@ cl::opt<ActionType> Action(
         clEnumValN(GenClangAttrHasAttributeImpl,
                    "gen-clang-attr-has-attribute-impl",
                    "Generate a clang attribute spelling list"),
+        clEnumValN(DumpClangAttrHasAttributeAction,
+                   "dump-clang-attr-has-attribute",
+                   "Print GNU attribute names for which __has_attribute "
+                   "is always 1"),
         clEnumValN(GenClangAttrSpellingListIndex,
                    "gen-clang-attr-spelling-index",
                    "Generate a clang attribute spelling index"),
@@ -429,6 +434,9 @@ bool ClangTableGenMain(raw_ostream &OS, const RecordKeeper &Records) {
     break;
   case GenClangAttrHasAttributeImpl:
     EmitClangAttrHasAttrImpl(Records, OS);
+    break;
+  case DumpClangAttrHasAttributeAction:
+    clang::DumpClangAttrHasAttribute(Records, OS);
     break;
   case GenClangAttrSpellingListIndex:
     EmitClangAttrSpellingListIndex(Records, OS);
