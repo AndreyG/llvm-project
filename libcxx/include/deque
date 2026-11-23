@@ -173,6 +173,11 @@ template <class T, class Allocator, class Predicate>
     typename deque<T, Allocator>::size_type
     erase_if(deque<T, Allocator>& c, Predicate pred);    // C++20
 
+namespace pmr {
+    template< class T >
+    using deque = std::deque<T, std::pmr::polymorphic_allocator<T>>;
+}
+
 }  // std
 
 */

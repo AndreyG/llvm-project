@@ -578,6 +578,26 @@ template <class Key, class T, class Hash, class Pred, class Alloc>
     operator!=(const unordered_multimap<Key, T, Hash, Pred, Alloc>& x,
                const unordered_multimap<Key, T, Hash, Pred, Alloc>& y); // Removed in C++20
 
+namespace pmr {
+    template<
+        class Key,
+        class T,
+        class Hash = std::hash<Key>,
+        class KeyEqual = std::equal_to<Key>
+    > using unordered_map =
+          std::unordered_map<Key, T, Hash, KeyEqual,
+              std::pmr::polymorphic_allocator<std::pair<const Key, T>>>;
+
+    template<
+        class Key,
+        class T,
+        class Hash = std::hash<Key>,
+        class Pred = std::equal_to<Key>
+    > using unordered_multimap =
+          std::unordered_multimap<Key, T, Hash, Pred,
+              std::pmr::polymorphic_allocator<std::pair<const Key, T>>>;
+}
+
 }  // std
 
 */

@@ -532,6 +532,18 @@ typedef basic_string<char8_t> u8string; // C++20
 typedef basic_string<char16_t> u16string;
 typedef basic_string<char32_t> u32string;
 
+namespace pmr
+{
+    template<class CharT, class Traits = char_traits<CharT>>
+    using basic_string = std::basic_string<CharT, Traits, polymorphic_allocator<CharT>>;
+
+    typedef basic_string<char>    string;
+    typedef basic_string<wchar_t> wstring;
+    typedef basic_string<char8_t> u8string; // C++20
+    typedef basic_string<char16_t> u16string;
+    typedef basic_string<char32_t> u32string;    
+}
+
 int                stoi  (const string& str, size_t* idx = nullptr, int base = 10);
 long               stol  (const string& str, size_t* idx = nullptr, int base = 10);
 unsigned long      stoul (const string& str, size_t* idx = nullptr, int base = 10);

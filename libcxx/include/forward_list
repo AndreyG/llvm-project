@@ -191,6 +191,11 @@ template <class T, class Allocator, class Predicate>
     typename forward_list<T, Allocator>::size_type
     erase_if(forward_list<T, Allocator>& c, Predicate pred);    // C++20
 
+namespace pmr {
+    template< class T >
+    using forward_list = std::forward_list<T, std::pmr::polymorphic_allocator<T>>;
+}
+
 }  // std
 
 */

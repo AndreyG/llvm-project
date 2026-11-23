@@ -268,6 +268,12 @@ template<ranges::input_range R, class Allocator = allocator<ranges::range_value_
   vector(from_range_t, R&&, Allocator = Allocator())
     -> vector<ranges::range_value_t<R>, Allocator>; // C++23
 
+namespace pmr
+{
+    template<class T>
+    using vector = std::vector<T, polymorphic_allocator<T>>;
+}
+
 template <class Allocator> struct hash<std::vector<bool, Allocator>>;
 
 template <class T, class Allocator> bool operator==(const vector<T,Allocator>& x, const vector<T,Allocator>& y);   // constexpr since C++20

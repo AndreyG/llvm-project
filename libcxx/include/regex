@@ -538,6 +538,18 @@ typedef match_results<const wchar_t*>          wcmatch;
 typedef match_results<string::const_iterator>  smatch;
 typedef match_results<wstring::const_iterator> wsmatch;
 
+namespace pmr {
+    template <class BidirIt>
+    using match_results = std::match_results<BidirIt,
+                              std::pmr::polymorphic_allocator<
+                                  std::sub_match<BidirIt>>>;
+
+    typedef match_results<const char*>             cmatch;
+    typedef match_results<const wchar_t*>          wcmatch;
+    typedef match_results<string::const_iterator>  smatch;
+    typedef match_results<wstring::const_iterator> wsmatch;
+}
+
 template <class BidirectionalIterator, class Allocator>
     bool
     operator==(const match_results<BidirectionalIterator, Allocator>& m1,

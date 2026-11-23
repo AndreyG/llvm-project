@@ -507,6 +507,20 @@ template <class Key, class Compare, class Allocator, class Predicate>
 typename multiset<Key, Compare, Allocator>::size_type
 erase_if(multiset<Key, Compare, Allocator>& c, Predicate pred);  // C++20
 
+namespace pmr {
+    template<
+        class Key,
+        class Compare = std::less<Key>
+    > using set = std::set<Key, Compare, std::pmr::polymorphic_allocator<Key>>;
+
+    template<
+        class Key,
+        class Compare = std::less<Key>
+    > using multiset = std::multiset<Key,
+                                     Compare,
+                                     std::pmr::polymorphic_allocator<Key>>;
+}
+
 }  // std
 
 */
